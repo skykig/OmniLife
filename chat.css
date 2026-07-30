@@ -104,3 +104,86 @@ body{
 .chat-input button:hover{
     background:#3b82f6;
 }
+#newChatBtn{
+
+    width:100%;
+    padding:14px;
+
+    margin:20px 0;
+
+    border:none;
+    border-radius:10px;
+
+    background:#2563eb;
+    color:white;
+
+    font-size:16px;
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#newChatBtn:hover{
+
+    background:#3b82f6;
+
+}
+
+.history{
+
+    list-style:none;
+
+    margin-top:20px;
+
+}
+
+.history li{
+
+    padding:12px;
+    margin-bottom:8px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.history li:hover{
+
+    background:#1e293b;
+
+}
+
+.bottom-menu{
+
+    position:absolute;
+
+    bottom:20px;
+
+    left:20px;
+
+    right:20px;
+
+}
+
+.bottom-menu p{
+
+    padding:12px;
+
+    margin-bottom:8px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    color:#cbd5e1;
+
+}
+
+.bottom-menu p:hover{
+
+    background:#1e293b;
+}
