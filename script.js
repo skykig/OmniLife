@@ -8,13 +8,16 @@ setTimeout(() => {
     subtitle.innerHTML = "Your Personal AI Life OS";
 }, 2500);
 
+const button = document.querySelector("button");
+const orb = document.querySelector(".orb");
+
 button.addEventListener("click", () => {
-    window.location.href = "login.html";
-}); setTimeout(() => {
-    window.location.href = "login.html";
-}, 1500);
     orb.style.transform = "scale(1.3)";
 
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1500);
+});
     setTimeout(() => {
 
         document.body.style.background = "#020617";
