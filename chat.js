@@ -1,1 +1,1 @@
-
+alert("NEW CHAT.JS LOADED");
