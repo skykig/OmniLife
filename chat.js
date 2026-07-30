@@ -27,27 +27,32 @@ function sendMessage() {
 
     userInput.value = "";
 
-    messages.scrollTop = messages.scrollHeight;
-
-    localStorage.setItem("chatHistory", messages.innerHTML);
-
     // AI Reply
     setTimeout(() => {
 
         const aiMsg = document.createElement("div");
         aiMsg.className = "ai-message";
-
         aiMsg.textContent =
-            "🤖 Omni AI\n\nYou said:\n" + text +
-            "\n\nThis is a demo response. Real AI will be connected soon.";
+`🤖 Omni AI
+
+You said:
+${text}
+
+This is a demo response. Real AI will be connected soon.`;
 
         messages.appendChild(aiMsg);
 
-        messages.scrollTop = messages.scrollHeight;
-
+        // Save complete chat
         localStorage.setItem("chatHistory", messages.innerHTML);
 
+        messages.scrollTop = messages.scrollHeight;
+
     }, 1000);
+
+    // Save user message
+    localStorage.setItem("chatHistory", messages.innerHTML);
+
+    messages.scrollTop = messages.scrollHeight;
 
 }
 
@@ -63,7 +68,7 @@ userInput.addEventListener("keydown", function(e) {
 
 });
 
-// New Chat Button
+// New Chat
 if (newChatBtn) {
 
     newChatBtn.addEventListener("click", () => {
