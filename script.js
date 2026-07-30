@@ -9,9 +9,8 @@ setTimeout(() => {
 }, 2500);
 
 button.addEventListener("click", () => {
-
-    button.innerHTML = "Loading...";
-
+    window.location.href = "login.html";
+});
     orb.style.transform = "scale(1.3)";
 
     setTimeout(() => {
