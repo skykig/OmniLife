@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniLife AI Chat</title>
 
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>OmniLife</h2>
+
+    <ul>
+        <li>🏠 Dashboard</li>
+        <li>💬 AI Chat</li>
+        <li>🎙 Voice</li>
+        <li>🧠 Memory</li>
+        <li>⚙ Settings</li>
+    </ul>
+</div>
+
+<div class="chat-area">
+
+    <div class="chat-header">
+        <h1>🤖 Omni AI</h1>
+    </div>
+
+    <div id="messages" class="messages">
+
+        <div class="ai-message">
+            Hello 👋<br>
+            I am Omni AI.<br>
+            How can I help you today?
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Type your message...">
+
+        <button id="sendBtn">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+<script src="chat.js"></script>
+
+</body>
+</html>
