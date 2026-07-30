@@ -1,18 +1,28 @@
-const title = document.getElementById("title");
-const subtitle = document.getElementById("subtitle");
-const button = document.getElementById("startBtn");
+const loginBtn = document.getElementById("loginBtn");
 
-setTimeout(() => {
-    title.textContent = "I'm Omni";
-    subtitle.textContent = "Your Personal AI Life OS";
-}, 2500);
+loginBtn.addEventListener("click", () => {
 
-button.addEventListener("click", () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    button.textContent = "Loading...";
+    if (email === "" || password === "") {
+        alert("Please enter your email and password.");
+        return;
+    }
+
+    loginBtn.innerText = "Logging in...";
+    loginBtn.disabled = true;
 
     setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1000);
+
+        alert("Welcome to OmniLife!");
+
+        // Next step me Dashboard banayenge
+        // window.location.href = "dashboard.html";
+
+        loginBtn.innerText = "Login";
+        loginBtn.disabled = false;
+
+    }, 1500);
 
 });
