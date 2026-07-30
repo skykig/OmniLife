@@ -15,13 +15,7 @@ loginBtn.addEventListener("click", () => {
 
     setTimeout(() => {
 
-        alert("Welcome to OmniLife!");
-
-        // Next step me Dashboard banayenge
-        // window.location.href = "dashboard.html";
-
-        loginBtn.innerText = "Login";
-        loginBtn.disabled = false;
+        window.location.href = "dashboard.html";
 
     }, 1500);
 
