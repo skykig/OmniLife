@@ -14,14 +14,37 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.get("/", (req, res) => {
-  res.json({
-    status: "OmniLife AI Backend Running 🚀"
-  });
+app.post("/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    const response = await client.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are Omni AI, a friendly personal AI assistant.",
+        },
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+    });
+
+    res.json({
+      reply: response.choices[0].message.content,
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      reply: "Server Error",
+    });
+  }
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
 });
