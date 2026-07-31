@@ -43,9 +43,27 @@ async function sendMessage() {
     saveChat();
 
     showTyping();
+setTimeout(() => {
 
-    try {
+    removeTyping();
 
+    addMessage(
+        "🤖 OmniLife AI\n\nHello! I'm currently running in Demo Mode.\n\nReal AI will be connected soon. 😊",
+        "ai"
+    );
+
+    saveChat();
+
+}, 1000);
+    
+addMessage(
+    "🤖 OmniLife AI\n\nHello! I'm currently running in Demo Mode.\n\nMy real AI brain will be connected soon. 😊",
+    "ai"
+);
+
+removeTyping();
+
+return;
         const response = await fetch(API_URL, {
 
             method: "POST",
