@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniLife AI Chat</title>
 
-    <link rel="stylesheet" href="chat.css">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OmniLife AI Chat</title>
+
+<link rel="stylesheet" href="chat.css">
+
 </head>
+
+
 <body>
 
-<div class="sidebar">
 
-    <h2>OmniLife</h2>
+<div class="chat-container">
 
-    <button id="newChatBtn">+ New Chat</button>
-
-    <ul class="history">
-        <li>💬 New Conversation</li>
-        <li>📝 My Notes</li>
-        <li>🌍 Travel Planner</li>
-        <li>💼 Business Ideas</li>
-    </ul>
-
-    <div class="bottom-menu">
-        <p>👤 Profile</p>
-        <p>⚙️ Settings</p>
-        <p>🚪 Logout</p>
-    </div>
-
-</div>
-
-<div class="chat-area">
 
     <div class="chat-header">
-        <h1>🤖 Omni AI</h1>
+        <div>
+            <h2>🤖 Nova AI</h2>
+            <p>OmniLife Personal Assistant</p>
+        </div>
     </div>
 
-    <div id="messages" class="messages">
 
-        <div class="ai-message">
-            Hello 👋<br><br>
-            I am Omni AI.<br>
+
+    <div id="chatBox" class="chat-box">
+
+        <div class="message ai-message">
+            Hello 👋 I am Nova AI.
             How can I help you today?
         </div>
 
     </div>
 
-    <div class="chat-input">
 
-        <input
-            type="text"
-            id="userInput"
-            placeholder="Type your message...">
+
+
+    <div class="chat-input-area">
+
+
+        <input 
+        id="userInput"
+        type="text"
+        placeholder="Ask Nova anything..."
+        autocomplete="off"
+        >
+
 
         <button id="sendBtn">
             Send
         </button>
 
+
     </div>
+
 
 </div>
 
+
+
 <script src="chat.js"></script>
 
+
 </body>
+
 </html>
