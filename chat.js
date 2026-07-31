@@ -77,9 +77,10 @@ async function sendMessage() {
         removeTyping();
 
         addMessage(
-            "⚠️ Backend not connected.\n\nCurrently running in Offline Demo Mode.",
-            "ai"
-        );
+           addMessage(
+    "🤖 OmniLife AI\n\nHello! I'm currently running in Demo Mode.\n\nMy real AI brain will be connected soon. 😊",
+    "ai"
+);
 
         saveChat();
 
