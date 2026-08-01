@@ -14,16 +14,15 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Home Route
 app.get("/", (req, res) => {
   res.json({
-    app: "OmniLife AI",
-    status: "Running",
-    version: "1.0.0"
+    success: true,
+    app: "OmniLife Nova AI",
+    version: "1.0.0",
+    status: "Running"
   });
 });
 
-// Chat Route
 app.post("/chat", async (req, res) => {
 
   try {
@@ -32,17 +31,16 @@ app.post("/chat", async (req, res) => {
 
     if (!message) {
       return res.status(400).json({
-        reply: "Message is required."
+        reply: "Please send a message."
       });
     }
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [
+    const response = await client.responses.create({
+      model: "gpt-5.5",
+      input: [
         {
           role: "system",
-          content:
-            "You are OmniLife AI, a smart, friendly, helpful personal assistant."
+          content: "You are Nova AI, the personal AI assistant inside the OmniLife app. Be friendly, helpful, and concise."
         },
         {
           role: "user",
@@ -52,15 +50,15 @@ app.post("/chat", async (req, res) => {
     });
 
     res.json({
-      reply: completion.choices[0].message.content
+      reply: response.output_text
     });
 
-  } catch (error) {
+  } catch (err) {
 
-    console.error(error);
+    console.error(err);
 
     res.status(500).json({
-      reply: "⚠️ OmniLife AI server error."
+      reply: "Server Error"
     });
 
   }
@@ -70,7 +68,5 @@ app.post("/chat", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-
   console.log(`🚀 OmniLife Backend Running on Port ${PORT}`);
-
 });
