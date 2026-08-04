@@ -92,7 +92,7 @@ async function sendMessage(){
 
     try{
 
-        const res=await fetch("http://localhost:3000/chat",{
+        const res = await fetch("https://omnilife-backend.onrender.com/chat", {
 
             method:"POST",
 
