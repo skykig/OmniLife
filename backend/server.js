@@ -55,14 +55,15 @@ app.post("/chat", async (req, res) => {
 
   } catch (err) {
 
-    console.error(err);
+   } catch (err) {
 
-    res.status(500).json({
-      reply: "Server Error"
-    });
+  console.error("OpenAI Error:", err);
 
-  }
+  res.status(500).json({
+    reply: err.message
+  });
 
+}
 });
 
 const PORT = process.env.PORT || 3000;
