@@ -14,6 +14,7 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Home Route
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -23,15 +24,15 @@ app.get("/", (req, res) => {
   });
 });
 
+// Chat Route
 app.post("/chat", async (req, res) => {
-
   try {
 
     const { message } = req.body;
 
     if (!message) {
       return res.status(400).json({
-        reply: "Please send a message."
+        reply: "Please enter a message."
       });
     }
 
@@ -40,7 +41,8 @@ app.post("/chat", async (req, res) => {
       input: [
         {
           role: "system",
-          content: "You are Nova AI, the personal AI assistant inside the OmniLife app. Be friendly, helpful, and concise."
+          content:
+            "You are Nova AI, the personal AI assistant inside the OmniLife app. Reply in a friendly and helpful way."
         },
         {
           role: "user",
@@ -55,15 +57,13 @@ app.post("/chat", async (req, res) => {
 
   } catch (err) {
 
-   } catch (err) {
+    console.error("OpenAI Error:", err);
 
-  console.error("OpenAI Error:", err);
+    res.status(500).json({
+      reply: err.message || "Server Error"
+    });
 
-  res.status(500).json({
-    reply: err.message
-  });
-
-}
+  }
 });
 
 const PORT = process.env.PORT || 3000;
