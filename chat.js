@@ -91,7 +91,7 @@ async function sendMessage(){
     typing.classList.remove("hidden");
 
     try{
-
+console.log("Calling:", "https://omnilife-backend.onrender.com/chat");
         const res = await fetch("https://omnilife-backend.onrender.com/chat", {
 
             method:"POST",
