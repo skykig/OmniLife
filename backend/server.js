@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
@@ -10,21 +10,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
 });
 
-// Home Route
 app.get("/", (req, res) => {
   res.json({
     success: true,
     app: "OmniLife Nova AI",
-    version: "1.0.0",
+    provider: "Google Gemini",
+    version: "2.0.0",
     status: "Running"
   });
 });
 
-// Chat Route
 app.post("/chat", async (req, res) => {
   try {
 
@@ -36,31 +35,21 @@ app.post("/chat", async (req, res) => {
       });
     }
 
-    const response = await client.responses.create({
-      model: "gpt-5.5",
-      input: [
-        {
-          role: "system",
-          content:
-            "You are Nova AI, the personal AI assistant inside the OmniLife app. Reply in a friendly and helpful way."
-        },
-        {
-          role: "user",
-          content: message
-        }
-      ]
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: message
     });
 
     res.json({
-      reply: response.output_text
+      reply: response.text
     });
 
   } catch (err) {
 
-    console.error("OpenAI Error:", err);
+    console.error(err);
 
     res.status(500).json({
-      reply: err.message || "Server Error"
+      reply: err.message || "Gemini Server Error"
     });
 
   }
@@ -69,5 +58,5 @@ app.post("/chat", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 OmniLife Backend Running on Port ${PORT}`);
+  console.log(`🚀 OmniLife Gemini Backend Running on Port ${PORT}`);
 });
