@@ -14,6 +14,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+// Home Route
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -24,9 +25,9 @@ app.get("/", (req, res) => {
   });
 });
 
+// Chat Route
 app.post("/chat", async (req, res) => {
   try {
-
     const { message } = req.body;
 
     if (!message) {
@@ -45,15 +46,15 @@ app.post("/chat", async (req, res) => {
     });
 
   } catch (err) {
-
     console.error("Gemini Error:", err);
 
     res.status(500).json({
-        reply: JSON.stringify(err)
+      reply: err.message || "Gemini Server Error"
     });
+  }
+});
 
-}
-
+// Start Server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
