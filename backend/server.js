@@ -46,14 +46,13 @@ app.post("/chat", async (req, res) => {
 
   } catch (err) {
 
-    console.error(err);
+    console.error("Gemini Error:", err);
 
     res.status(500).json({
-      reply: err.message || "Gemini Server Error"
+        reply: JSON.stringify(err)
     });
 
-  }
-});
+}
 
 const PORT = process.env.PORT || 3000;
 
