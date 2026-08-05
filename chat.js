@@ -5,6 +5,8 @@ const typing = document.getElementById("typing");
 const history = document.getElementById("history");
 const newChatBtn = document.getElementById("newChatBtn");
 
+const API_URL = "https://omnilife-1.onrender.com/chat";
+
 let chats = JSON.parse(localStorage.getItem("omnilife_chats")) || [];
 
 loadHistory();
@@ -40,115 +42,76 @@ function addMessage(text, sender) {
         <div class="avatar">
             ${sender === "user" ? "🧑" : "🤖"}
         </div>
-
         <div class="bubble">
             ${escapeHtml(text).replace(/\n/g, "<br>")}
         </div>
     `;
 
     chatBox.appendChild(msg);
-
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    if(sender==="user"){
+    if (sender === "user") {
         chats.push(text);
-        localStorage.setItem("omnilife_chats",JSON.stringify(chats));
+        localStorage.setItem("omnilife_chats", JSON.stringify(chats));
         loadHistory();
     }
-
 }
 
-function loadHistory(){
+function loadHistory() {
+    history.innerHTML = "";
 
-    history.innerHTML="";
-
-    chats.slice().reverse().forEach(chat=>{
-
-        const item=document.createElement("div");
-
-        item.className="history-item";
-
-        item.innerText=chat.length>30
-            ? chat.substring(0,30)+"..."
-            : chat;
-
+    chats.slice().reverse().forEach(chat => {
+        const item = document.createElement("div");
+        item.className = "history-item";
+        item.innerText = chat.length > 30 ? chat.substring(0, 30) + "..." : chat;
         history.appendChild(item);
-
     });
-
 }
 
-async function sendMessage(){
+async function sendMessage() {
 
-    const text=input.value.trim();
+    const text = input.value.trim();
 
-    if(!text) return;
+    if (!text) return;
 
-    addMessage(text,"user");
+    addMessage(text, "user");
 
-    input.value="";
+    input.value = "";
 
     typing.classList.remove("hidden");
 
-    try{
-console.log("Calling:", "https://omnilife-backend.onrender.com/chat");
-        const res = await fetch("https://omnilife-backend.onrender.com/chat", {
+    try {
 
-            method:"POST",
+        console.log("Calling:", API_URL);
 
-            headers:{
-                "Content-Type":"application/json"
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-
-            body:JSON.stringify({
-                message:text
+            body: JSON.stringify({
+                message: text
             })
-
         });
 
-        const data=await res.json();
+        const data = await res.json();
 
         typing.classList.add("hidden");
 
-        addMessage(data.reply,"ai");
+        addMessage(data.reply || "No reply received.", "ai");
 
-    }
+    } catch (err) {
 
-    catch{
+        console.error(err);
 
         typing.classList.add("hidden");
 
-        const demoReplies=[
-
-            "I'm currently running in Offline Demo Mode.",
-
-            "Backend is not connected yet.",
-
-            "Your UI is working perfectly.",
-
-            "Once Node.js server starts, I'll answer using OpenAI.",
-
-            "Everything is ready. Just connect the backend."
-
-        ];
-
-        const randomReply=
-            demoReplies[
-                Math.floor(Math.random()*demoReplies.length)
-            ];
-
-        addMessage(randomReply,"ai");
-
+        addMessage("❌ Backend connection failed.", "ai");
     }
-
 }
 
-function escapeHtml(text){
-
-    const div=document.createElement("div");
-
-    div.innerText=text;
-
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
     return div.innerHTML;
-
 }
