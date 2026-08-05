@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { GoogleGenAI } from "@google/genai";
+import Groq from "groq-sdk";
 
 dotenv.config();
 
@@ -10,22 +10,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
-// Home Route
 app.get("/", (req, res) => {
   res.json({
     success: true,
     app: "OmniLife Nova AI",
-    provider: "Google Gemini",
-    version: "2.0.0",
+    provider: "Groq",
+    version: "3.0.0",
     status: "Running"
   });
 });
 
-// Chat Route
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -36,27 +34,36 @@ app.post("/chat", async (req, res) => {
       });
     }
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: message
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "system",
+          content: "You are Nova AI, the personal AI assistant inside the OmniLife app. Be friendly, helpful and concise."
+        },
+        {
+          role: "user",
+          content: message
+        }
+      ],
+      temperature: 0.7
     });
 
     res.json({
-      reply: response.text
+      reply: completion.choices[0].message.content
     });
 
   } catch (err) {
-    console.error("Gemini Error:", err);
+    console.error("Groq Error:", err);
 
     res.status(500).json({
-      reply: err.message || "Gemini Server Error"
+      reply: err.message || "Groq Server Error"
     });
   }
 });
 
-// Start Server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 OmniLife Gemini Backend Running on Port ${PORT}`);
+  console.log(`🚀 OmniLife Groq Backend Running on Port ${PORT}`);
 });
